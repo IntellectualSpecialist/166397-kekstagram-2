@@ -1,3 +1,4 @@
+// isStringLengthValid
 const isStringLengthValid = (string, length) => string.length <= length;
 
 console.log('\n Проверка isStringLengthValid: \n ');
@@ -8,6 +9,16 @@ console.log(isStringLengthValid('проверяемая строка', 18)); // 
 // Строка длиннее 10 символов
 console.log(isStringLengthValid('проверяемая строка', 10)); // false
 
+// isStringPalindrome
+
+// первый вариант
+// const isStringPalindromeAlt = (string) => {
+//   const processedString = string.replaceAll(' ', '').toLowerCase();
+
+//   return processedString === processedString.split('').reverse().join('');
+// };
+
+// второй вариант
 const isStringPalindrome = (string) => {
   const convertedString = string.replaceAll(' ', '').toLowerCase();
 
@@ -30,6 +41,16 @@ console.log(isStringPalindrome('Кекс')); // false
 // Это палиндром
 console.log(isStringPalindrome('Лёша на полке клопа нашёл ')); // true
 
+// extractsNumberFromData
+
+// первый вариант
+// const extractsNumberFromData = (data) => {
+//   const processedData = `${data}`;
+
+//   return parseInt(processedData.split('').filter((item) => !Number.isNaN(parseInt(item, 10))).join(''), 10);
+// };
+
+// второй вариант
 const extractsNumberFromData = (data) => {
   const processedData = `${data}`;
 
