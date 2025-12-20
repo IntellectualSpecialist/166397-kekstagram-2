@@ -1,11 +1,6 @@
-import { createPhotos } from './create-photos';
-import './modal';
-import './photo-modal';
-import './render-photos';
-import './api';
-import './filters';
-import './form-validation';
+import { renderThumbnails } from './render-thumbnails.js';
+import { createPhotos } from './create-photos.js';
 
-const photos = createPhotos();
-
-window.console.log(photos);
+document.addEventListener('DOMContentLoaded', () => {
+  renderThumbnails(createPhotos());
+});

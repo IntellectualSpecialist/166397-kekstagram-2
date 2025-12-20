@@ -26,7 +26,7 @@ const createPhotosData = () => {
     'Валера'
   ];
 
-  return { COMMENTS, DESCRIPTIONS, NAMES};
+  return { COMMENTS, DESCRIPTIONS, NAMES };
 };
 
 export { createPhotosData };
