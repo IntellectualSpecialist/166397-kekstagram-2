@@ -1,7 +1,6 @@
 import { findTemplateById } from './utils.js';
 
 const thumbnailTemplateElement = findTemplateById('picture');
-const thumbnailsContainerElement = document.querySelector('.pictures');
 
 const createThumbnail = ({ id, url, description, likes, comments }) => {
   const thumbnailElement = thumbnailTemplateElement.cloneNode(true);
@@ -19,8 +18,8 @@ const createThumbnail = ({ id, url, description, likes, comments }) => {
   return thumbnailElement;
 };
 
-const renderThumbnails = (photos) => {
-  if (!thumbnailsContainerElement) {
+const renderThumbnails = (photos, container) => {
+  if (!container) {
     return;
   }
 
@@ -31,7 +30,7 @@ const renderThumbnails = (photos) => {
     thumbnailsListFragment.append(thumbnailElement);
   });
 
-  thumbnailsContainerElement.append(thumbnailsListFragment);
+  container.append(thumbnailsListFragment);
 };
 
 export { renderThumbnails };
