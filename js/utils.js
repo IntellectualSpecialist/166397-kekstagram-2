@@ -62,4 +62,8 @@ const findTemplateById = (id) => {
   return template.content.firstElementChild;
 };
 
-export { getRandomInteger, getRandomArrayElement, getRandomArrayElements, createRandomIdGenetrator, findTemplateById };
+const isEscKey = (evt) => evt.key === 'Escape';
+
+const findPhotoById = (id, photos) => photos.find((photo) => photo.id === id);
+
+export { getRandomInteger, getRandomArrayElement, getRandomArrayElements, createRandomIdGenetrator, findTemplateById, isEscKey, findPhotoById };

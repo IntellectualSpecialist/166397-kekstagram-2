@@ -1,6 +1,5 @@
-import { renderThumbnails } from './render-thumbnails.js';
-import { createPhotos } from './create-photos.js';
+import { initGallery } from './gallery.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  renderThumbnails(createPhotos());
+  initGallery();
 });
