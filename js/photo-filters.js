@@ -81,24 +81,19 @@ const onSliderUpdate = () => {
   const sliderValue = sliderElement.noUiSlider.get();
   effectFieldElement.value = `${sliderValue}`;
 
-  if (currentFilter) {
-    const style = `${EffectsNames[currentFilter]}(${sliderValue}${currentFilter === 'marvin' ? '%' : ''}${currentFilter === 'phobos' ? 'px' : ''})`;
+  const propertyValue = `${EffectsNames[currentFilter]}(${sliderValue}${currentFilter === 'marvin' ? '%' : ''}${currentFilter === 'phobos' ? 'px' : ''})`;
 
-    imageElement.style.filter = `${style}`;
-  }
+  imageElement.style.filter = `${propertyValue}`;
 };
 
 const onEffectsListChange = (evt) => {
   if (evt.target.matches('.effects__radio')) {
-
     const targetElementValue = evt.target.value;
 
     if (targetElementValue === 'none') {
       sliderWrapperElement.classList.add('hidden');
       currentFilter = '';
-      imageElement.style = '';
-      sliderElement.noUiSlider.set(100);
-
+      imageElement.style.filter = 'none';
     } else {
       sliderWrapperElement.classList.remove('hidden');
       currentFilter = targetElementValue;

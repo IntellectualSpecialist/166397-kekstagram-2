@@ -16,13 +16,17 @@ const hashtag = /^#[a-zа-яё0-9]{1,19}$/i;
 
 const convertHashtags = (value) => value.trim().toLowerCase().split(/\s+/);
 
-const isHashtagValid = (value) => hashtag.test(value);
+const checkHashtagValid = (value) => hashtag.test(value);
 
-const isEveryHashtagValid = (hashtags) => hashtags.every((item) => isHashtagValid(item));
+const checkEveryHashtagValid = (hashtags) => hashtags.every((item) => checkHashtagValid(item));
 
-const isHashtagsCountValid = (hashtags) => hashtags.length <= MAX_HASHTAGS_COUNT;
+const checkHashtagsCountValid = (hashtags) => hashtags.length <= MAX_HASHTAGS_COUNT;
 
-const isHashtagsUnique = (hashtags) => new Set(hashtags).size === hashtags.length;
+const checkHashtagsUnique = (hashtags) => new Set(hashtags).size === hashtags.length;
+
+let isEveryHashtagValid = true;
+let isHashtagsCountValid = true;
+let isHashtagsUnique = true;
 
 const validateHashtagsField = (value) => {
   if (!value.trim()) {
@@ -31,23 +35,25 @@ const validateHashtagsField = (value) => {
 
   const hashtags = convertHashtags(value);
 
-  return isEveryHashtagValid(hashtags) && isHashtagsCountValid(hashtags) && isHashtagsUnique(hashtags);
+  isEveryHashtagValid = checkEveryHashtagValid(hashtags);
+  isHashtagsCountValid = checkHashtagsCountValid(hashtags);
+  isHashtagsUnique = checkHashtagsUnique(hashtags);
+
+  return isEveryHashtagValid && isHashtagsCountValid && isHashtagsUnique;
 };
 
 const validateDescriptionField = (value) => value.length <= MAX_DESCRIPTION_LENGTH;
 
-const getHashtagsErrorMessage = (value) => {
-  const hashtags = convertHashtags(value);
-
-  if (!isEveryHashtagValid(hashtags)) {
+const getHashtagsErrorMessage = () => {
+  if (!isEveryHashtagValid) {
     return 'Невалидный хэштег';
   }
 
-  if (!isHashtagsUnique(hashtags)) {
+  if (!isHashtagsUnique) {
     return 'Хэштеги повторяются';
   }
 
-  if (!isHashtagsCountValid(hashtags)) {
+  if (!isHashtagsCountValid) {
     return 'Не более 5 хэштегов';
   }
 };
