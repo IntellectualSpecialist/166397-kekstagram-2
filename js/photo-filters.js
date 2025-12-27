@@ -1,4 +1,4 @@
-const EffectsNames = {
+const EffectsMap = {
   'chrome': 'grayscale',
   'sepia': 'sepia',
   'marvin': 'invert',
@@ -81,7 +81,7 @@ const onSliderUpdate = () => {
   const sliderValue = sliderElement.noUiSlider.get();
   effectFieldElement.value = `${sliderValue}`;
 
-  const propertyValue = `${EffectsNames[currentFilter]}(${sliderValue}${currentFilter === 'marvin' ? '%' : ''}${currentFilter === 'phobos' ? 'px' : ''})`;
+  const propertyValue = `${EffectsMap[currentFilter]}(${sliderValue}${currentFilter === 'marvin' ? '%' : ''}${currentFilter === 'phobos' ? 'px' : ''})`;
 
   imageElement.style.filter = `${propertyValue}`;
 };
