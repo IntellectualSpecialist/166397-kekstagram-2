@@ -21,13 +21,13 @@ const onBodyKeydown = (evt) => {
   }
 };
 
-const createSendInfoModal = (status, message) => {
-  const templateElement = status === 'success' ? successTemplateElement : errorTemplateElement;
+const createSendInfoModal = (message) => {
+  const templateElement = currentStatus === 'success' ? successTemplateElement : errorTemplateElement;
   const templateModalElement = templateElement.cloneNode(true);
-  const closeElement = templateModalElement.querySelector(`.${status}__button`);
+  const closeElement = templateModalElement.querySelector(`.${currentStatus}__button`);
 
   if (message) {
-    templateModalElement.querySelector(`.${status}__title`).textContnet = message;
+    templateModalElement.querySelector(`.${currentStatus}__title`).textContnet = message;
   }
 
   closeElement.addEventListener('click', () => {
@@ -38,8 +38,8 @@ const createSendInfoModal = (status, message) => {
 };
 
 function renderSendInfoModal(status, message) {
-  modalElement = createSendInfoModal(status, message);
   currentStatus = status;
+  modalElement = createSendInfoModal(message);
   bodyElement.append(modalElement);
   bodyElement.addEventListener('keydown', onBodyKeydown);
   bodyElement.addEventListener('click', onBodyClick);
