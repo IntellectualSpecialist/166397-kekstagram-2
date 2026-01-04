@@ -8,7 +8,7 @@ const setFormState = () => {
 
 const getFormState = () => isFormOpen;
 
-const isSendInfoModalExist = () => bodyElement.querySelector('.error') || bodyElement.querySelector('.success');
+const checkSendInfoModalExist = () => bodyElement.querySelector('.error') || bodyElement.querySelector('.success');
 
 const findTemplateById = (id) => {
   const template = bodyElement.querySelector(`#${id}`);
@@ -45,4 +45,4 @@ const showAlertTemporarily = (message) => {
 };
 
 
-export { findTemplateById, isEscKey, findElementById, showAlertTemporarily, isSendInfoModalExist, getFormState, setFormState };
+export { findTemplateById, isEscKey, findElementById, showAlertTemporarily, checkSendInfoModalExist, getFormState, setFormState };

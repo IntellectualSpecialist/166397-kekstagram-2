@@ -1,4 +1,4 @@
-import { isEscKey, isSendInfoModalExist, setFormState } from './utils.js';
+import { isEscKey, checkSendInfoModalExist, setFormState } from './utils.js';
 import { renderSendInfoModal } from './send-info-modal.js';
 import { isFormValid, resetValidation } from './form-validation.js';
 import { initScalePhoto, resetScaleValue } from './scale-photo.js';
@@ -20,7 +20,8 @@ const submitButtonElement = modalFormElement.querySelector('.img-upload__submit'
 
 const onDocumentKeydown = (evt) => {
   if (isEscKey(evt)) {
-    if (evt.target.matches('.text__description') || evt.target.matches('.text__hashtags') || isSendInfoModalExist()) {
+    const isSendInfoModalExist = checkSendInfoModalExist();
+    if (evt.target.matches('.text__description') || evt.target.matches('.text__hashtags') || isSendInfoModalExist) {
       evt.stopPropagation();
     } else {
       evt.preventDefault();

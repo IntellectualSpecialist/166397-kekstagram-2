@@ -1,5 +1,7 @@
 import { isEscKey, findTemplateById, getFormState } from './utils.js';
 
+const VALID_STATUSES = ['success', 'error'];
+
 const bodyElement = document.querySelector('body');
 const errorTemplateElement = findTemplateById('error');
 const successTemplateElement = findTemplateById('success');
@@ -37,8 +39,8 @@ const createSendInfoModal = (message) => {
 };
 
 function renderSendInfoModal(status, message) {
-  if (status !== 'success' && status !== 'error') {
-    throw new Error('Неизвестный статус сообщения');
+  if (!VALID_STATUSES.includes(status)) {
+    return;
   }
 
   currentStatus = status;
