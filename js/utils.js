@@ -1,4 +1,5 @@
 const ALERT_SHOW_TIME = 5000;
+const DEFAULT_TIMEOUT_DELAY = 500;
 const bodyElement = document.querySelector('body');
 let isFormOpen = false;
 
@@ -63,4 +64,23 @@ const getPluralForm = (number, formForOne, formForFew, formForMany) => {
   return formForMany;
 };
 
-export { findTemplateById, isEscKey, findElementById, showAlertTemporarily, checkSendInfoModalExist, getFormState, setFormState, getPluralForm };
+function debounce (callback, timeoutDelay = DEFAULT_TIMEOUT_DELAY) {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+export {
+  findTemplateById,
+  isEscKey,
+  findElementById,
+  showAlertTemporarily,
+  checkSendInfoModalExist,
+  getFormState,
+  setFormState,
+  getPluralForm,
+  debounce
+};

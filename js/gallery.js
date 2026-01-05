@@ -5,7 +5,7 @@ import { registerPhotoModalEvents, openPhotoModal } from './photo-modal.js';
 const thumbnailsContainerElement = document.querySelector('.pictures');
 
 const initGallery = (photos) => {
-  renderThumbnails(photos, thumbnailsContainerElement);
+  renderThumbnails(photos);
   registerPhotoModalEvents();
 
   thumbnailsContainerElement.addEventListener('click', (evt) => {
