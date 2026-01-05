@@ -1,4 +1,6 @@
-import { isEscKey, findTemplateById } from './utils.js';
+import { isEscKey, findTemplateById, getFormState } from './utils.js';
+
+const VALID_STATUSES = ['success', 'error'];
 
 const bodyElement = document.querySelector('body');
 const errorTemplateElement = findTemplateById('error');
@@ -7,7 +9,7 @@ const successTemplateElement = findTemplateById('success');
 let modalElement;
 let currentStatus;
 
-const onBodyClick = (evt) => {
+const onModalClick = (evt) => {
   if (!evt.target.closest(`.${currentStatus}__inner`)) {
     removeSendInfoModal();
   }
@@ -17,13 +19,11 @@ const onBodyKeydown = (evt) => {
   if (isEscKey(evt)) {
     evt.preventDefault();
     removeSendInfoModal();
-    evt.stopPropagation();
   }
 };
 
-const createSendInfoModal = (message) => {
-  const templateElement = currentStatus === 'success' ? successTemplateElement : errorTemplateElement;
-  const templateModalElement = templateElement.cloneNode(true);
+const createSendInfoModal = (template, message) => {
+  const templateModalElement = template.cloneNode(true);
   const closeElement = templateModalElement.querySelector(`.${currentStatus}__button`);
 
   if (message) {
@@ -38,17 +38,26 @@ const createSendInfoModal = (message) => {
 };
 
 function renderSendInfoModal(status, message) {
+  if (!VALID_STATUSES.includes(status)) {
+    return;
+  }
+
   currentStatus = status;
-  modalElement = createSendInfoModal(message);
+  modalElement = createSendInfoModal(currentStatus === 'success' ? successTemplateElement : errorTemplateElement, message);
   bodyElement.append(modalElement);
-  bodyElement.addEventListener('keydown', onBodyKeydown);
-  bodyElement.addEventListener('click', onBodyClick);
+  document.addEventListener('keydown', onBodyKeydown);
+  modalElement.addEventListener('click', onModalClick);
+  bodyElement.classList.add('modal-open');
 }
 
 function removeSendInfoModal() {
   modalElement.remove();
-  bodyElement.removeEventListener('keydown', onBodyKeydown);
-  bodyElement.removeEventListener('click', onBodyClick);
+  document.removeEventListener('keydown', onBodyKeydown);
+
+  const isFormOpen = getFormState();
+  if (!isFormOpen) {
+    bodyElement.classList.remove('modal-open');
+  }
 }
 
 export { renderSendInfoModal };

@@ -1,5 +1,6 @@
 import { findTemplateById } from './utils.js';
 
+const thumbnailsContainerElement = document.querySelector('.pictures');
 const thumbnailTemplateElement = findTemplateById('picture');
 
 const createThumbnail = ({ id, url, description, likes, comments }) => {
@@ -18,7 +19,7 @@ const createThumbnail = ({ id, url, description, likes, comments }) => {
   return thumbnailElement;
 };
 
-const renderThumbnails = (photos, container) => {
+const renderThumbnails = (photos, container = thumbnailsContainerElement) => {
   if (!container) {
     return;
   }
@@ -28,6 +29,10 @@ const renderThumbnails = (photos, container) => {
   photos.forEach((photo) => {
     const thumbnailElement = createThumbnail(photo);
     thumbnailsListFragment.append(thumbnailElement);
+  });
+
+  container.querySelectorAll('.picture').forEach((picture) => {
+    picture.remove();
   });
 
   container.append(thumbnailsListFragment);

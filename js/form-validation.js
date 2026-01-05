@@ -1,3 +1,5 @@
+import { getPluralForm } from './utils';
+
 const MAX_HASHTAGS_COUNT = 5;
 const MAX_DESCRIPTION_LENGTH = 140;
 
@@ -6,10 +8,10 @@ const hashtagsFieldElement = formElement.querySelector('.text__hashtags');
 const descriptionFieldElement = formElement.querySelector('.text__description');
 
 const pristine = new Pristine(formElement, {
-  classTo: 'img-upload__field-wrapper', // Элемент, на который будут добавляться классы
-  errorTextParent: 'img-upload__field-wrapper', // Элемент, куда будет выводиться текст с ошибкой
-  errorTextTag: 'div', // Тег, который будет обрамлять текст ошибки
-  errorTextClass: 'img-upload__field-wrapper--error' // Класс для элемента с текстом ошибки
+  classTo: 'img-upload__field-wrapper',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextTag: 'div',
+  errorTextClass: 'img-upload__field-wrapper--error'
 });
 
 const hashtag = /^#[a-zа-яё0-9]{1,19}$/i;
@@ -54,12 +56,14 @@ const getHashtagsErrorMessage = () => {
   }
 
   if (!isHashtagsCountValid) {
-    return 'Не более 5 хэштегов';
+    return `Не более ${MAX_HASHTAGS_COUNT} ${getPluralForm(MAX_HASHTAGS_COUNT, 'хэштегов', 'хэштега', 'хэштегов')}`;
   }
 };
 
+const getDescriptionErrorMessage = () => `Не больше ${MAX_DESCRIPTION_LENGTH} ${getPluralForm(MAX_DESCRIPTION_LENGTH, 'символов', 'символа', 'символов')}`;
+
 pristine.addValidator(hashtagsFieldElement, validateHashtagsField, getHashtagsErrorMessage);
-pristine.addValidator(descriptionFieldElement, validateDescriptionField, 'Не больше 140 символов');
+pristine.addValidator(descriptionFieldElement, validateDescriptionField, getDescriptionErrorMessage);
 
 const resetValidation = () => {
   pristine.reset();
